@@ -10,7 +10,7 @@ export type {
   ActivityLog,
 } from "@prisma/client";
 export { AccountStatus, RoleType } from "@prisma/client";
-export type { Prisma } from "@prisma/client";
+export { Prisma } from "@prisma/client";
 
 // Singleton PrismaClient instance
 // In development, use a global variable to prevent multiple instances during HMR

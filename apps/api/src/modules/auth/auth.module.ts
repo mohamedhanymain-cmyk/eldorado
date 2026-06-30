@@ -1,6 +1,7 @@
 import { Module } from "@nestjs/common";
 import { JwtModule, JwtModuleOptions } from "@nestjs/jwt";
 import { ConfigModule, ConfigService } from "@nestjs/config";
+import type { StringValue } from "ms";
 import { AuthController } from "./auth.controller";
 import { AuthService } from "./auth.service";
 import { JwtAuthGuard } from "../../common/guards/jwt-auth.guard";
@@ -15,7 +16,7 @@ import { APP_GUARD } from "@nestjs/core";
       useFactory: (config: ConfigService): JwtModuleOptions => ({
         secret: config.get<string>("JWT_SECRET") || "fallback-jwt-secret",
         signOptions: {
-          expiresIn: (config.get<string>("JWT_ACCESS_EXPIRY") ?? "15m") as string,
+          expiresIn: (config.get<string>("JWT_ACCESS_EXPIRY") ?? "15m") as StringValue,
         },
       }),
     }),
