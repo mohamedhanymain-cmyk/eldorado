@@ -15,7 +15,7 @@ import { APP_GUARD } from "@nestjs/core";
       useFactory: (config: ConfigService): JwtModuleOptions => ({
         secret: config.get<string>("JWT_SECRET") || "fallback-jwt-secret",
         signOptions: {
-          expiresIn: config.get<string>("JWT_ACCESS_EXPIRY") || "15m",
+          expiresIn: (config.get<string>("JWT_ACCESS_EXPIRY") ?? "15m") as string,
         },
       }),
     }),

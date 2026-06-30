@@ -51,7 +51,7 @@ export class AuditInterceptor implements NestInterceptor {
               userId: user.id,
               action,
               entity,
-              oldValue: (request.body?._oldValue ?? null) as Prisma.InputJsonValue,
+              oldValue: (request.body?._oldValue as Prisma.InputJsonValue) ?? Prisma.JsonNull,
               newValue: this.sanitizeForAudit(responseData),
               ipAddress: String(ipAddress),
               deviceInfo: String(deviceInfo),
@@ -93,8 +93,8 @@ export class AuditInterceptor implements NestInterceptor {
     return singular.charAt(0).toUpperCase() + singular.slice(1);
   }
 
-  private sanitizeForAudit(data: unknown): Prisma.InputJsonValue {
-    if (!data || typeof data !== "object") return null;
+  private sanitizeForAudit(data: unknown): Prisma.InputJsonValue | typeof Prisma.JsonNull {
+    if (!data || typeof data !== "object") return Prisma.JsonNull;
     const sanitized = { ...(data as Record<string, unknown>) };
     // Remove sensitive fields from audit logs
     delete sanitized["password"];
