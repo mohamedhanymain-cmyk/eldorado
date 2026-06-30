@@ -6,6 +6,7 @@ import {
 } from "@nestjs/common";
 import { Observable, tap } from "rxjs";
 import { PrismaService } from "../prisma/prisma.service";
+import { Prisma } from "@eldorado/database";
 
 /**
  * Audit interceptor that automatically logs every mutation (POST, PUT, PATCH, DELETE)
@@ -50,8 +51,8 @@ export class AuditInterceptor implements NestInterceptor {
               userId: user.id,
               action,
               entity,
-              oldValue: (request.body?._oldValue ?? null) as any,
-              newValue: this.sanitizeForAudit(responseData) as any,
+              oldValue: (request.body?._oldValue ?? null) as Prisma.InputJsonValue,
+              newValue: this.sanitizeForAudit(responseData),
               ipAddress: String(ipAddress),
               deviceInfo: String(deviceInfo),
             },
@@ -92,7 +93,7 @@ export class AuditInterceptor implements NestInterceptor {
     return singular.charAt(0).toUpperCase() + singular.slice(1);
   }
 
-  private sanitizeForAudit(data: unknown): Record<string, unknown> | null {
+  private sanitizeForAudit(data: unknown): Prisma.InputJsonValue {
     if (!data || typeof data !== "object") return null;
     const sanitized = { ...(data as Record<string, unknown>) };
     // Remove sensitive fields from audit logs
@@ -101,6 +102,6 @@ export class AuditInterceptor implements NestInterceptor {
     delete sanitized["recoveryPassword"];
     delete sanitized["accessToken"];
     delete sanitized["refreshToken"];
-    return sanitized;
+    return sanitized as Prisma.InputJsonObject;
   }
 }
