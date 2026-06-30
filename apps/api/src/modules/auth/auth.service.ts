@@ -4,9 +4,8 @@ import {
   ConflictException,
   Logger,
 } from "@nestjs/common";
-import { JwtService } from "@nestjs/jwt";
+import { JwtService, JwtSignOptions } from "@nestjs/jwt";
 import { ConfigService } from "@nestjs/config";
-import type { StringValue } from "ms";
 import * as argon2 from "argon2";
 import { PrismaService } from "../../common/prisma/prisma.service";
 import type {
@@ -190,8 +189,8 @@ export class AuthService {
   private async generateTokens(
     payload: Omit<TokenPayload, "iat" | "exp">
   ): Promise<{ accessToken: string; refreshToken: string }> {
-    const accessExpiry = (this.configService.get<string>("JWT_ACCESS_EXPIRY") || "15m") as StringValue;
-    const refreshExpiry = (this.configService.get<string>("JWT_REFRESH_EXPIRY") || "7d") as StringValue;
+    const accessExpiry = (this.configService.get<string>("JWT_ACCESS_EXPIRY") || "15m") as JwtSignOptions["expiresIn"];
+    const refreshExpiry = (this.configService.get<string>("JWT_REFRESH_EXPIRY") || "7d") as JwtSignOptions["expiresIn"];
     const refreshSecret = this.configService.get<string>("JWT_REFRESH_SECRET") || "fallback-refresh-secret";
 
     const [accessToken, refreshToken] = await Promise.all([
