@@ -1,0 +1,113 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+
+@layer base {
+  :root {
+    --background: 222 47% 6%;
+    --foreground: 210 40% 96%;
+    --card: 222 47% 8%;
+    --card-foreground: 210 40% 96%;
+    --popover: 222 47% 8%;
+    --popover-foreground: 210 40% 96%;
+    --primary: 217 91% 60%;
+    --primary-foreground: 222 47% 6%;
+    --secondary: 217 33% 14%;
+    --secondary-foreground: 210 40% 96%;
+    --muted: 217 33% 14%;
+    --muted-foreground: 215 20% 55%;
+    --accent: 172 66% 50%;
+    --accent-foreground: 222 47% 6%;
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 217 33% 18%;
+    --input: 217 33% 18%;
+    --ring: 217 91% 60%;
+    --radius: 0.625rem;
+    --sidebar: 222 47% 5%;
+    --sidebar-foreground: 210 40% 96%;
+    --sidebar-border: 217 33% 12%;
+    --sidebar-accent: 217 91% 60%;
+    --chart-1: 217 91% 60%;
+    --chart-2: 172 66% 50%;
+    --chart-3: 262 83% 58%;
+    --chart-4: 43 96% 56%;
+    --chart-5: 0 84% 60%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground font-sans antialiased;
+  }
+}
+
+@layer utilities {
+  /* Glassmorphism effect */
+  .glass {
+    @apply backdrop-blur-xl bg-white/[0.03] border border-white/[0.06];
+  }
+
+  .glass-card {
+    @apply backdrop-blur-xl bg-white/[0.04] border border-white/[0.08] rounded-xl shadow-lg shadow-black/20;
+  }
+
+  /* Gradient text */
+  .text-gradient {
+    @apply bg-gradient-to-r from-blue-400 via-cyan-400 to-teal-400 bg-clip-text text-transparent;
+  }
+
+  /* Smooth scrollbar */
+  .custom-scrollbar::-webkit-scrollbar {
+    width: 6px;
+  }
+  .custom-scrollbar::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  .custom-scrollbar::-webkit-scrollbar-thumb {
+    @apply bg-white/10 rounded-full;
+  }
+  .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+    @apply bg-white/20;
+  }
+
+  /* Stat card hover glow */
+  .stat-card {
+    @apply glass-card p-6 transition-all duration-300 hover:shadow-xl hover:shadow-primary/5 hover:border-primary/20;
+  }
+
+  /* Animated gradient background */
+  .animated-gradient {
+    background: linear-gradient(
+      135deg,
+      hsl(222 47% 6%) 0%,
+      hsl(230 45% 8%) 25%,
+      hsl(222 47% 6%) 50%,
+      hsl(215 50% 8%) 75%,
+      hsl(222 47% 6%) 100%
+    );
+    background-size: 400% 400%;
+    animation: gradient-shift 15s ease infinite;
+  }
+
+  @keyframes gradient-shift {
+    0%, 100% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+  }
+
+  /* Status badge styles */
+  .badge-available { @apply bg-emerald-500/15 text-emerald-400 border-emerald-500/20; }
+  .badge-reserved { @apply bg-amber-500/15 text-amber-400 border-amber-500/20; }
+  .badge-sold { @apply bg-blue-500/15 text-blue-400 border-blue-500/20; }
+  .badge-refunded { @apply bg-purple-500/15 text-purple-400 border-purple-500/20; }
+  .badge-disabled { @apply bg-slate-500/15 text-slate-400 border-slate-500/20; }
+  .badge-expired { @apply bg-red-500/15 text-red-400 border-red-500/20; }
+  .badge-pending { @apply bg-orange-500/15 text-orange-400 border-orange-500/20; }
+  .badge-waiting { @apply bg-cyan-500/15 text-cyan-400 border-cyan-500/20; }
+  .badge-lost { @apply bg-rose-500/15 text-rose-400 border-rose-500/20; }
+}

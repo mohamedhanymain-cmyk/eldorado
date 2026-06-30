@@ -1,0 +1,29 @@
+{
+  "name": "eldorado-erp",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Eldorado Digital Goods ERP System",
+  "scripts": {
+    "dev": "turbo dev",
+    "build": "turbo build",
+    "lint": "turbo lint",
+    "clean": "turbo clean",
+    "db:generate": "turbo db:generate",
+    "db:migrate": "pnpm --filter @eldorado/database run migrate",
+    "db:migrate:dev": "pnpm --filter @eldorado/database run migrate:dev",
+    "db:seed": "pnpm --filter @eldorado/database run seed",
+    "db:studio": "pnpm --filter @eldorado/database run studio",
+    "format": "prettier --write \"**/*.{ts,tsx,md,json}\"",
+    "setup": "node scripts/setup-env.js",
+    "test": "turbo test"
+  },
+  "devDependencies": {
+    "prettier": "^3.3.0",
+    "turbo": "^2.5.0",
+    "typescript": "^5.7.0"
+  },
+  "packageManager": "pnpm@9.15.0",
+  "engines": {
+    "node": ">=20.0.0"
+  }
+}
