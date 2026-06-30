@@ -194,10 +194,10 @@ export class AuthService {
     const refreshSecret = this.configService.get<string>("JWT_REFRESH_SECRET") || "fallback-refresh-secret";
 
     const [accessToken, refreshToken] = await Promise.all([
-      this.jwtService.signAsync(payload as Record<string, any>, { expiresIn: accessExpiry }),
-      this.jwtService.signAsync(payload as Record<string, any>, {
+      this.jwtService.signAsync(payload as any, { expiresIn: accessExpiry as any }),
+      this.jwtService.signAsync(payload as any, {
         secret: refreshSecret,
-        expiresIn: refreshExpiry,
+        expiresIn: refreshExpiry as any,
       }),
     ]);
 
